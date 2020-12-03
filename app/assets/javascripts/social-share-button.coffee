@@ -18,6 +18,7 @@ window.SocialShareButton =
     url = encodeURIComponent($parent.getAttribute("data-url") || '')
     via = encodeURIComponent($parent.getAttribute("data-via") || '')
     desc = encodeURIComponent($parent.getAttribute("data-desc") || ' ')
+    whatsappmobile = encodeURIComponent($parent.getAttribute("data-whatsappmobile") || ' ')
 
     # tracking click events if google analytics enabled
     ga = window[window['GoogleAnalyticsObject'] || 'ga']
@@ -100,7 +101,10 @@ window.SocialShareButton =
       when "telegram"
         SocialShareButton.openUrl("https://telegram.me/share/url?text=#{title}&url=#{url}")
       when "whatsapp_app"
-        whatsapp_app_url = "whatsapp://send?text=#{title}%0A#{url}"
+        if whatsappmobile == null
+          whatsapp_app_url = "whatsapp://send?text=#{title}%0A#{url}"
+        else
+          whatsapp_app_url = whatsappmobile
         window.open(whatsapp_app_url, '_top')
       when "whatsapp_web"
         SocialShareButton.openUrl("https://web.whatsapp.com/send?text=#{title}%0A#{url}")
